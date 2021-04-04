@@ -44,7 +44,7 @@ char* init_tape(const char* const init_data[], const int init_data_size) {
 int main(const int argc, const char* const argv[]) {
     tape = init_tape(argv+1, argc-1);
     size_t index = TAPE_PADDING;
-    char state = '$start_state';
+    char state = '$start';
 
     int running = 1;
     while (running) {
