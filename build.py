@@ -5,7 +5,8 @@ from typing import Dict
 
 TURING_MACHINE_TEMPLATE_FILENAME = 'turing_machine.c'
 DEFAULT_MACHINE_PARAMS = {
-    'start_state': '1',
+    'start': '1',
+    'empty_symbol': '_',
 }
 
 
