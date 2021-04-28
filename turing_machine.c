@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAPE_PADDING 10
+#define TAPE_PADDING $tape_padding
 #define EMPTY_TAPE_SYMBOL '$empty_symbol'
 
 int tape_size = 0;
@@ -48,7 +48,7 @@ int main(const int argc, const char* const argv[]) {
 
     int running = 1;
     while (running) {
-        printf("State %c\t\tHead index %3zu\n", state, index);
+        $debug printf("State %c   Head index %3zu\n", state, index);
         char read = tape[index];
         const unsigned short key = state << 8 | read;
         switch (key) {
