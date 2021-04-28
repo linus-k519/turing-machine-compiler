@@ -43,6 +43,8 @@ FROM	5	READ	0	WRITE	1	GOTO	1	MOVE	right
 
 Compile a turing machine file to an executable binary.
 
+Requirements: python3, gcc
+
 ```
 usage: turing-machine-compiler [-h] [-o OUTPUT] [--tape-padding TAPE_PADDING]
                                [-d DEBUG]
