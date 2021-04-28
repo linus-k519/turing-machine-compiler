@@ -1,6 +1,6 @@
 # turing-machine-compiler
 
-A compiler that translates Turing machines into C code and then compiles it.
+A compiler that translates linear bounded Turing machines into C code and then compiles it.
 
 ## Turing machine file (.tm)
 
@@ -41,10 +41,12 @@ FROM	5	READ	0	WRITE	1	GOTO	1	MOVE	right
 
 ## Compiler
 
-Compile a turing machine file to a executable binary.
+Compile a turing machine file to an executable binary.
 
 ```
-usage: turing-machine-compiler [-h] [-o OUTPUT] FILE
+usage: turing-machine-compiler [-h] [-o OUTPUT] [--tape-padding TAPE_PADDING]
+                               [-d DEBUG]
+                               FILE
 
 Turing Machine Compiler
 
@@ -55,6 +57,10 @@ optional arguments:
   -h, --help            show this help message and exit
   -o OUTPUT, --output OUTPUT
                         The name of the output binary.
+  --tape-padding TAPE_PADDING
+                        The number of elements the tape is padded with
+  -d DEBUG, --debug DEBUG
+                        Lets the machine print debugging messages
 ```
 
 ### Example
