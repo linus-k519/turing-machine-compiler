@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(prog='turing-machine-compiler', description='Tu
 parser.add_argument('filename', type=Path, metavar='FILE', help='The path to the turing machine file.')
 parser.add_argument('-o', '--output', type=Path, metavar='OUTPUT', help='The name of the output binary.')
 parser.add_argument('--tape-padding', type=int, default=4, help='The number of elements the tape is padded with')
-parser.add_argument('-d', '--debug', type=bool, default=False, action='store_true', help='Lets the machine print debugging messages')
+parser.add_argument('-d', '--debug', default=False, action='store_true', help='Lets the machine print debugging messages')
 
 
 def main():
