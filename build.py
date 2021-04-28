@@ -28,6 +28,6 @@ def compile_to_binary(binary_filename: Path, params: Dict[str, str]):
     body = body_template.substitute(params)
 
     # Run c compiler
-    process = subprocess.Popen(['cc', '-x', 'c', '-o', binary_filename, '-'], stdin=subprocess.PIPE)
+    process = subprocess.Popen(['cc', '-x', 'c', '-O2', '-o', binary_filename, '-'], stdin=subprocess.PIPE)
     stdout_data = process.communicate(body.encode('ascii'))
     assert stdout_data == (None, None)

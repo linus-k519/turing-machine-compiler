@@ -22,7 +22,7 @@ def main():
     transitions = transition.build_all(transitions)
     template_params = build.create_template_params(machine_params, transitions)
     template_params['tape_padding'] = args.tape_padding
-    template_params['debug'] = '//' if args.debug else ''  # Comments debug line out in turing_machine.c
+    template_params['debug'] = '//' if not args.debug else ''  # Comments debug line out in turing_machine.c
     binary_filename = args.output if args.output else args.filename.with_suffix('')
     build.compile_to_binary(binary_filename, template_params)
 

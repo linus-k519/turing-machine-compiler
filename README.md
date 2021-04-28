@@ -1,6 +1,6 @@
 # turing-machine-compiler
 
-A compiler that translates linear bounded Turing machines into C code and then compiles it.
+A compiler that translates deterministic Turing machines into C code and then compiles it.
 
 ## Turing machine file (.tm)
 
@@ -14,7 +14,7 @@ be specified.
 | Required | Synopsis              | Default          |
 | -------- | --------------------- | ---------------- |
 | No       | START _state_         | START 1          |
-| No       | EMPTY_SYMBOL _symbol_ | EMPTY_SYMBOL '_' |
+| No       | EMPTY_SYMBOL _symbol_ | EMPTY_SYMBOL _   |
 
 ### Transitions
 
@@ -68,23 +68,16 @@ optional arguments:
 Compile the machine in the file `machine.tm`.
 
 ```bash
-python3 . machine.tm
+./main.py machine.tm
 ```
 
 ## Executable binary
 
-The executable takes the tape as command line arguments.
-
-> NOTE: Currently, a padding of 10 default symbols is added to the left and right side of the tape.
-> An underflow or overflow beyond the limits of the tape leads to undefined behavior, but presumably to a
-> segmentation violation. In a later version, this padding should either be specified as a command line argument
-> or the tape should be able to grow dynamically.
-
-> NOTE: The symbols on the tape may only contain one ASCII character.
+The executable takes the tape items as command line arguments.
 
 ### Example
 
-Running the binary with a tape of `1 1 0`.
+Running the machine with a tape of `[1, 1, 0]`.
 
 ```
 ./machine 1 1 0

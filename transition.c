@@ -1,5 +1,5 @@
 case '$from' << 8 | '$read':
-    tape[index] = '$write';
+    tape_set(&tape, index, '$write');
     state = '$goto';
     $move
     break;
