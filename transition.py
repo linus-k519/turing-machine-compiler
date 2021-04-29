@@ -24,7 +24,7 @@ def build(transition: Transition) -> str:
     if transition['move'] in ['left', 'l']:
         transition['move'] = 'l'
     elif transition['move'] in ['right', 'r']:
-        transition['move_'] = 'r'
+        transition['move'] = 'r'
     else:
         transition['move'] = '_'
 
