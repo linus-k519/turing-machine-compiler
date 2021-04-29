@@ -79,7 +79,7 @@ void tape_set(Tape_t *tape, size_t index, char value) {
 
 
 // Prints the tape to stdout
-void print_tape(Tape_t *tape) {
+void print_tape(Tape_t *tape, ssize_t highlight_index) {
     // Get first not-empty tape item
     size_t left = 0;
     for (size_t i = 0; i < tape->size; i++) {
@@ -87,6 +87,10 @@ void print_tape(Tape_t *tape) {
             left = i;
             break;
         }
+    }
+    if (left >= 1) {
+        // Show one additional item
+        left--;
     }
 
     // Get last not-empty tape item
@@ -97,10 +101,18 @@ void print_tape(Tape_t *tape) {
             break;
         }
     }
+    if (right < (tape->size) - 1) {
+        // Show one additional item
+        right++;
+    }
 
     // Print tape from left to right
     for (size_t i = left; i <= right; i++) {
-        putchar(tape->data[i]);
+        if (i == highlight_index) {
+            printf("[%c]", tape->data[i]);
+        } else {
+            putchar(tape->data[i]);
+        }
         putchar(' ');
     }
     printf("\n");
@@ -127,12 +139,16 @@ int main(int const argc, char const *const argv[]) {
     Tape_t tape;
     init_tape(&tape, argv + 1, argc - 1);
     char state = '$start';
-    size_t index = 0;
+    ssize_t index = 0;
 
     bool running = true;
     while (running) {
-        $debug printf("State: %c\nHead index: %zu\nTape: ", state, index); print_tape(&tape); putchar('\n');
         char read = tape_get(&tape, index);
+        if ($debug) {
+            printf("State: %c\nTape: ", state);
+            print_tape(&tape, index);
+            putchar('\n');
+        }
         const unsigned short key = state << 8 | read;
         switch (key) {
             $transitions
@@ -143,5 +159,5 @@ int main(int const argc, char const *const argv[]) {
     }
 
     printf("Terminated in state: %c\nTape: ", state);
-    print_tape(&tape);
+    print_tape(&tape, index);
 }
