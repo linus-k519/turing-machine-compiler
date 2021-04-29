@@ -23,7 +23,6 @@ size_t tape_get_real_index(Tape_t *tape, ssize_t index) {
 
 // Grows the tape on the left side by TAPE_GROW_CONSTANT elements.
 void tape_grow_left(Tape_t *tape) {
-    printf("Start grow left\n");
     char *old_data = tape->data;
     size_t old_size = tape->size;
 
