@@ -3,7 +3,6 @@ class Tape {
         this.data = config['tape'] || []
         this.emptySymbol = config['machine_params']['empty_symbol'] || '_'
         this.indexOffset = 0
-        this.grow_constant = 10
     }
 
     getRealIndex(index) {
@@ -11,16 +10,11 @@ class Tape {
     }
 
     growLeft() {
-        for (let i = 0; i < this.grow_constant; i++) {
-            this.data.unshift(this.emptySymbol)
-        }
-        this.indexOffset += this.grow_constant
+        this.data.unshift(this.emptySymbol)
     }
 
     growRight() {
-        for (let i = 0; i < this.grow_constant; i++) {
-            this.data.push(this.emptySymbol)
-        }
+        this.data.push(this.emptySymbol)
     }
 
     growIfNecessary(index) {
@@ -95,6 +89,7 @@ class Tape {
 }
 
 function runTM(config) {
+    const start_time = performance.now()
     let tape = new Tape(config)
     let state = config['machine_params']['start'] || '1'
     let index = 0
@@ -112,16 +107,18 @@ function runTM(config) {
                 foundTransition = true
                 tape.set(index, transition['write'])
                 state = transition['goto']
-                if (transition['move'] === 'left') {
+                if (transition['move'] === 'left' || transition['move'] === 'l') {
                     index--
-                } else if (transition['move'] === 'right') {
+                } else if (transition['move'] === 'right' || transition['move'] === 'r') {
                     index++
                 }
                 break
             }
         }
         if (!foundTransition) {
-            document.getElementById('output').innerText += `Terminated in state ${state}\n`
+            const exec_duration = performance.now() - start_time
+            document.getElementById('output').innerText += `Finished in ${exec_duration.toFixed(2)} ms\n`
+            document.getElementById('output').innerText += `State: ${state}\n`
             document.getElementById('output').innerText += `Tape: ${tape.toString(index)}\n`
             return
         }
