@@ -176,3 +176,44 @@ function renderTMExecution() {
     parseResult['tape'] = document.getElementById('tape').value.split(' ')
     runTM(parseResult)
 }
+
+function updateURL() {
+    const tape = document.getElementById('tape').value
+    const tm_description = document.getElementById('tm_description').value
+    setGetParameter('tape', tape)
+    setGetParameter('tm_description', tm_description)
+}
+
+function getGetParameters() {
+    return location.search
+        .substr(1)
+        .split("&")
+        .filter(x => x) // Ensure item is not empty
+        .reduce((acc, cur) => {
+            let [key, value] = cur.split("=")
+            key = decodeURIComponent(key)
+            value = decodeURIComponent(value)
+            acc[key] = value
+            return acc
+        }, {})
+}
+
+function setGetParameter(key, value) {
+    key = encodeURIComponent(key)
+    value = encodeURIComponent(value)
+    let params = getGetParameters()
+    params[key] = value
+    window.history.replaceState(null, '','?' + Object.keys(params)
+        .map((key, index) => key + '=' + params[key])
+        .join('&'));
+}
+
+window.onload = () => {
+    const params = getGetParameters()
+    if (params['tape'] !== undefined) {
+        document.getElementById('tape').value = params['tape']
+    }
+    if (params['tm_description'] !== undefined) {
+        document.getElementById('tm_description').value = params['tm_description']
+    }
+}

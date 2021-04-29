@@ -26,31 +26,34 @@
     div {
         margin-bottom: 20px;
     }
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        background-color: slategrey;
+    }
 </style>
 <body>
 
+<h1>Turing Machine Interpreter</h1>
+<p><i>Tip: Share the URL with your friends. The machine and the tape are included in the URL.</i></p>
+
+<p>
+    Get started with a <a href="index.html?tape=1%201%200&tm_description=START%20q1%0AEMPTY_SYMBOL%200%0AFROM%20q1%20READ%201%20WRITE%200%20GOTO%20q2%20MOVE%20right%0AFROM%20q1%20READ%200%20WRITE%200%20GOTO%20q6%20MOVE%20none%0AFROM%20q2%20READ%201%20WRITE%201%20GOTO%20q2%20MOVE%20right%0AFROM%20q2%20READ%200%20WRITE%200%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%201%20WRITE%201%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%200%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%201%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%200%20WRITE%200%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%201%20WRITE%201%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%200%20WRITE%201%20GOTO%20q1%20MOVE%20right">Demo Machine</a>
+</p>
+
 <div>
     <label for="tm_description">Machine description</label><br>
-    <textarea rows="20" cols="50" id="tm_description">
-START q1
-EMPTY_SYMBOL 0
-FROM q1 READ 1 WRITE 0 GOTO q2 MOVE right
-FROM q1 READ 0 WRITE 0 GOTO q6 MOVE none
-FROM q2 READ 1 WRITE 1 GOTO q2 MOVE right
-FROM q2 READ 0 WRITE 0 GOTO q3 MOVE right
-FROM q3 READ 1 WRITE 1 GOTO q3 MOVE right
-FROM q3 READ 0 WRITE 1 GOTO q4 MOVE left
-FROM q4 READ 1 WRITE 1 GOTO q4 MOVE left
-FROM q4 READ 0 WRITE 0 GOTO q5 MOVE left
-FROM q5 READ 1 WRITE 1 GOTO q5 MOVE left
-FROM q5 READ 0 WRITE 1 GOTO q1 MOVE right
-    </textarea>
+    <textarea rows="20" cols="50" id="tm_description" onkeyup="updateURL()"></textarea>
 </div>
 
 
 <div>
     <label for="tape">Tape</label>
-    <input id="tape" value="1 1 0">
+    <input id="tape" onkeyup="updateURL()">
 </div>
 
 <div>
@@ -66,6 +69,10 @@ FROM q5 READ 0 WRITE 1 GOTO q1 MOVE right
     Output:<br><br>
     <span id="output"></span>
 </div>
+
+<footer>
+    Made by Linus. Sourcecode on <a href="https://github.com/linuskmr/turing-machine-compiler">GitHub</a>.
+</footer>
 
 </body>
 </html>
