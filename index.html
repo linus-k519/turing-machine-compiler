@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Turing Machine Compiler</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="index.js"></script>
+</head>
+
+<style>
+    body, button {
+        font-family: sans-serif;
+    }
+    button {
+        border-radius: 3px;
+        background-color: white;
+        border: 1px solid black;
+        padding: 10px;
+        transition: all 0.3s;
+    }
+    button:hover {
+        color: white;
+        background-color: green;
+        cursor: pointer;
+    }
+    div {
+        margin-bottom: 20px;
+    }
+</style>
+<body>
+
+<div>
+    <label for="tm_description">Machine description</label><br>
+    <textarea rows="20" cols="50" id="tm_description">
+START 0
+EMPTY_SYMBOL _
+FROM 0 READ 0 WRITE 0 GOTO 0 MOVE right
+FROM 0 READ 1 WRITE 1 GOTO 0 MOVE right
+FROM 0 READ _ WRITE _ GOTO 1 MOVE left
+FROM 1 READ 1 WRITE 0 GOTO f MOVE none
+FROM 1 READ 0 WRITE 1 GOTO 1 MOVE left
+    </textarea>
+</div>
+
+
+<div>
+    <label for="tape">Tape</label>
+    <input id="tape" value="1 0 0 0">
+</div>
+
+<div>
+    <label for="debug">Debug output</label>
+    <input type="checkbox" id="debug" checked>
+</div>
+
+<div>
+    <button onclick="renderTMExecution()">Run</button>
+</div>
+
+<div>
+    Output:<br><br>
+    <span id="output"></span>
+</div>
+
+</body>
+</html>
