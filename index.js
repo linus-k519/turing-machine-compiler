@@ -1,7 +1,7 @@
 class Tape {
     constructor(config) {
         this.data = config['tape'] || []
-        this.emptySymbol = config['empty_symbol'] || '_'
+        this.emptySymbol = config['machine_params']['empty_symbol'] || '_'
         this.indexOffset = 0
         this.grow_constant = 10
     }
