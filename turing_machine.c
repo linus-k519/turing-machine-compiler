@@ -17,18 +17,23 @@ typedef struct Tape_t {
 } Tape_t;
 
 
-size_t tape_get_real_index(Tape_t *tape, size_t index) {
+size_t tape_get_real_index(Tape_t *tape, ssize_t index) {
     return index + tape->index_offset;
 }
 
 // Grows the tape on the left side by TAPE_GROW_CONSTANT elements.
 void tape_grow_left(Tape_t *tape) {
+    printf("Start grow left\n");
     char *old_data = tape->data;
     size_t old_size = tape->size;
 
     // Allocate new memory
     tape->size += TAPE_GROW_CONSTANT;
     tape->data = malloc(sizeof(char) * tape->size);
+    if (tape->data == NULL) {
+        perror("tape_get_real_index: malloc new tape.data");
+        exit(EXIT_FAILURE);
+    }
 
     // Copy old tape
     memcpy(tape->data + TAPE_GROW_CONSTANT, old_data, old_size);
@@ -47,6 +52,9 @@ void tape_grow_right(Tape_t *tape) {
     size_t old_size = tape->size;
     tape->size += TAPE_GROW_CONSTANT;
     tape->data = realloc(tape->data, sizeof(char) * tape->size);
+    if (tape->data == NULL) {
+        exit(EXIT_FAILURE);
+    }
     // Fill with empty symbol
     for (size_t i = old_size; i < tape->size; i++) {
         tape->data[i] = EMPTY_TAPE_SYMBOL;
@@ -54,8 +62,10 @@ void tape_grow_right(Tape_t *tape) {
 }
 
 // Grows the tape if index is out of bounds.
-void tape_grow_if_necessary(Tape_t *tape, size_t index) {
-    size_t real_index = tape_get_real_index(tape, index);
+void tape_grow_if_necessary(Tape_t *tape, ssize_t index) {
+    // real_index could be negative, when the tape is not
+    // large enough on the left side, so use ssize_t.
+    ssize_t real_index = tape_get_real_index(tape, index);
     if (real_index < 0) {
         tape_grow_left(tape);
     } else if (real_index >= tape->size) {
@@ -64,14 +74,14 @@ void tape_grow_if_necessary(Tape_t *tape, size_t index) {
 }
 
 // Return the item at index of the tape.
-char tape_get(Tape_t *tape, size_t index) {
+char tape_get(Tape_t *tape, ssize_t index) {
     tape_grow_if_necessary(tape, index);
     size_t real_index = tape_get_real_index(tape, index);
     return tape->data[real_index];
 }
 
 // Sets the item at index to the value in the tape.
-void tape_set(Tape_t *tape, size_t index, char value) {
+void tape_set(Tape_t *tape, ssize_t index, char value) {
     tape_grow_if_necessary(tape, index);
     size_t real_index = tape_get_real_index(tape, index);
     tape->data[real_index] = value;
@@ -80,6 +90,7 @@ void tape_set(Tape_t *tape, size_t index, char value) {
 
 // Prints the tape to stdout
 void print_tape(Tape_t *tape, ssize_t highlight_index) {
+    size_t real_highlight_index = tape_get_real_index(tape, highlight_index);
     // Get first not-empty tape item
     size_t left = 0;
     for (size_t i = 0; i < tape->size; i++) {
@@ -101,6 +112,10 @@ void print_tape(Tape_t *tape, ssize_t highlight_index) {
             break;
         }
     }
+    if (real_highlight_index > right) {
+        // Show the real highlight index in any case
+        right = real_highlight_index;
+    }
     if (right < (tape->size) - 1) {
         // Show one additional item
         right++;
@@ -108,7 +123,7 @@ void print_tape(Tape_t *tape, ssize_t highlight_index) {
 
     // Print tape from left to right
     for (size_t i = left; i <= right; i++) {
-        if (i == highlight_index) {
+        if (i == real_highlight_index) {
             printf("[%c]", tape->data[i]);
         } else {
             putchar(tape->data[i]);

@@ -1,6 +1,6 @@
 from functools import lru_cache, reduce
-from typing import List, Dict, Iterable
 from string import Template
+from typing import Dict, Iterable
 
 TEMPLATE_FILE = 'transition.c'
 Transition = Dict[str, str]
@@ -22,11 +22,11 @@ def _load_template() -> Template:
 def build(transition: Transition) -> str:
     """Builds one transition to its c code."""
     if transition['move'] in ['left', 'l']:
-        transition['move'] = 'index--;'
+        transition['move'] = 'l'
     elif transition['move'] in ['right', 'r']:
-        transition['move'] = 'index++;'
+        transition['move_'] = 'r'
     else:
-        transition['move'] = ''
+        transition['move'] = '_'
 
     template = _load_template()
     return template.substitute(transition)
