@@ -8,6 +8,28 @@
 </head>
 
 <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        flex: 1 0 auto;
+        padding: 0 2%;
+    }
+    footer {
+        flex-shrink: 0;
+        background-color: #42A5F5;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    footer a {
+        color: white;
+    }
     body, button {
         font-family: sans-serif;
     }
@@ -23,55 +45,48 @@
         background-color: green;
         cursor: pointer;
     }
-    div {
+    div.margin {
         margin-bottom: 20px;
-    }
-    footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        text-align: center;
-        padding: 10px 0;
-        width: 100%;
-        background-color: slategrey;
     }
 </style>
 <body>
 
-<h1>Turing Machine Interpreter</h1>
-<p><i>Tip: Share the URL with your friends. The machine and the tape are included in the URL.</i></p>
+<div class="content">
+    <h1>Turing Machine Interpreter</h1>
+    <p><i>Tip: Share the URL with your friends. The machine and the tape are included in the URL.</i></p>
 
-<p>
-    Get started with a <a href="index.html?tape=1%201%200&tm_description=START%20q1%0AEMPTY_SYMBOL%200%0AFROM%20q1%20READ%201%20WRITE%200%20GOTO%20q2%20MOVE%20right%0AFROM%20q1%20READ%200%20WRITE%200%20GOTO%20q6%20MOVE%20none%0AFROM%20q2%20READ%201%20WRITE%201%20GOTO%20q2%20MOVE%20right%0AFROM%20q2%20READ%200%20WRITE%200%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%201%20WRITE%201%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%200%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%201%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%200%20WRITE%200%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%201%20WRITE%201%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%200%20WRITE%201%20GOTO%20q1%20MOVE%20right">Demo Machine</a>
-</p>
+    <p>
+        Get started with a <a href="index.html?tape=1%201%200&tm_description=START%20q1%0AEMPTY_SYMBOL%200%0AFROM%20q1%20READ%201%20WRITE%200%20GOTO%20q2%20MOVE%20right%0AFROM%20q1%20READ%200%20WRITE%200%20GOTO%20q6%20MOVE%20none%0AFROM%20q2%20READ%201%20WRITE%201%20GOTO%20q2%20MOVE%20right%0AFROM%20q2%20READ%200%20WRITE%200%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%201%20WRITE%201%20GOTO%20q3%20MOVE%20right%0AFROM%20q3%20READ%200%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%201%20WRITE%201%20GOTO%20q4%20MOVE%20left%0AFROM%20q4%20READ%200%20WRITE%200%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%201%20WRITE%201%20GOTO%20q5%20MOVE%20left%0AFROM%20q5%20READ%200%20WRITE%201%20GOTO%20q1%20MOVE%20right">Demo Machine</a>
+    </p>
 
-<div>
-    <label for="tm_description">Machine description</label><br>
-    <textarea rows="20" cols="50" id="tm_description" onkeyup="updateURL()"></textarea>
-</div>
+    <div class="margin">
+        <label for="tm_description">Machine description</label><br>
+        <textarea rows="20" cols="50" id="tm_description" onkeyup="updateURL()"></textarea>
+    </div>
 
 
-<div>
-    <label for="tape">Tape</label>
-    <input id="tape" onkeyup="updateURL()">
-</div>
+    <div class="margin">
+        <label for="tape">Tape</label>
+        <input id="tape" onkeyup="updateURL()">
+    </div>
 
-<div>
-    <label for="debug">Debug output</label>
-    <input type="checkbox" id="debug" checked>
-</div>
+    <div class="margin">
+        <label for="debug">Debug output</label>
+        <input type="checkbox" id="debug" checked>
+    </div>
 
-<div>
-    <button onclick="renderTMExecution()">Run</button>
-</div>
+    <div class="margin">
+        <button onclick="renderTMExecution()">Run</button>
+    </div>
 
-<div>
-    Output:<br><br>
-    <span id="output"></span>
+    <div class="margin">
+        Output:<br><br>
+        <span id="output"></span>
+    </div>
 </div>
 
 <footer>
-    Made by Linus. Sourcecode on <a href="https://github.com/linuskmr/turing-machine-compiler">GitHub</a>.
+    Made by Linus Kämmerer. Sourcecode on <a href="https://github.com/linuskmr/turing-machine-compiler">GitHub</a>.
 </footer>
 
 </body>
