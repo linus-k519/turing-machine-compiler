@@ -2,7 +2,7 @@
 
 A compiler that translates deterministic Turing machines into C code and then compiles it.
 
-[Live demo](https://linuskmr.github.io/turing-machine-compiler/) (Execution directly in the browser with Javascript, so without compiling
+[Live demo](https://linuskmr.github.io/turing-machine-compiler/) (Interpreter)
 
 ## Turing machine file (.tm)
 
