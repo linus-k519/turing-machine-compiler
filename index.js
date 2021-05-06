@@ -11,6 +11,7 @@ class Tape {
 
     growLeft() {
         this.data.unshift(this.emptySymbol)
+        this.indexOffset++
     }
 
     growRight() {
